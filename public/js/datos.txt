@@ -1,0 +1,8 @@
+libreria typeahead
+para hacer una busqueda con ajax
+https://programacion.net/articulo/como_crear_un_buscador_ajax_mediante_php_y_mysql_1866
+
+Controladores Laravel
+https://richos.gitbooks.io/laravel-5/content/capitulos/chapter11.html
+
+
