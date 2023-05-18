@@ -2,7 +2,7 @@
 
   @if (isset($_COOKIE["email_login"]) && $_COOKIE["email_login"] == $element->email)
                
-    @if ($element->rol == "administrador" || $element->rol == "editor")
+    @if ($element->rol == "administrador")
 
 @extends('plantilla')
 
@@ -18,7 +18,7 @@
 
         <div class="col-sm-6">
 
-          <h1>Evaluaciones</h1>
+          <h1>Tramites</h1>
 
         </div>
 
@@ -28,7 +28,7 @@
 
             <li class="breadcrumb-item"><a href="{{url('/')}}">Inicio</a></li>
 
-            <li class="breadcrumb-item active">Evaluaciones</li>
+            <li class="breadcrumb-item active">Tramites</li>
 
           </ol>
 
@@ -54,11 +54,11 @@
 
             <div class="modal-header bg-dark">
 
-              <h3 class="modal-title">Crear Nueva Evaluación</h3> 
+              <h3 class="modal-title">Crear Nuevo Tramite</h3> 
 
               <div class="card-tools">
 
-                <button class="btn btn-primary btn-sm bg-white" data-toggle="modal" data-target="#crearEvaluacion"> 
+                <button class="btn btn-primary btn-sm bg-white" data-toggle="modal" data-target="#crearTramite"> 
                   <i class="fa-solid fa-plus"></i>
                 </button>
 
@@ -67,13 +67,9 @@
             </div>
 
             <div class="card-body">
-              {{--
-              @foreach ($categorias as $element)
-                  {{ $element }}
-                @endforeach --}}
 
                 <table class="table table-bordered table-striped dt-responsive dataTable no-footer dtr-inline" 
-                width="100%" id="tablaEvaluaciones"> 
+                width="100%" id="tablaTramties"> 
                 
                   <thead>
   
@@ -110,77 +106,80 @@
 
 
 <!--=====================================
-Crear Evaluación
+Crear Tramites
 ======================================-->
-<div class="modal" id="crearEvaluacion">
+  
+  <div class="modal" id="crearTramite">
 
-  <div class="modal-dialog">
+    <div class="modal-dialog">
 
-    <div class="modal-content">
+      <div class="modal-content">
 
-      <form action="{{url('/')}}/evaluaciones" method="post" enctype="multipart/form-data">
+        <form action="{{url('/')}}/tramites" method="post" enctype="multipart/form-data">
 
-       @csrf
-        
-        <div class="modal-header bg-info">
+          @csrf
           
-          <h4 class="modal-title">Crear Evaluación</h4>
-
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-
-        </div>
-
-        <div class="modal-body">
-          
-           {{-- Título Evaluacion --}}
-
-           <div class="input-group mb-3">
-
-            <div class="input-group-append input-group-text">
-              <i class="fas fa-list-ul"></i>
-            </div>
-
-           <input type="text" class="form-control" name="titulo_evaluacion" placeholder="Ingrese el título de la evaluacion" value="{{old('titulo_evaluacion')}}" required>
+          <div class="modal-header bg-info">
             
+            <h4 class="modal-title">Crear Tramite</h4>
 
-          </div> 
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
 
-          {{-- Descripción Evaluacion --}}
+          </div>
 
-          <div class="input-group mb-3">
-     
-            <div class="input-group-append input-group-text">
-              <i class="fas fa-pencil-alt"></i>
+          <div class="modal-body">
+
+            
+            {{-- Título Tramite --}}
+            <label>Título del Tramite</label> <br>
+            <div class="input-group mb-3">
+
+              <div class="input-group-append input-group-text">
+                <i class="fas fa-list-ul"></i>
+              </div>
+
+              <input type="text" class="form-control" name="titulo_tramite" placeholder="Ingrese el título del tramite" value="{{old('nombre_tramite')}}">
+
+            </div> 
+
+            {{-- Descripción Tramite --}}
+            <label>Descripción del Tramite</label> <br>
+            <div class="input-group mb-3">
+        
+              <div class="input-group-append input-group-text">
+                <i class="fas fa-pencil-alt"></i>
+              </div>
+
+              <textarea class="form-control" rows="3" name="descripcion_tramite"
+              placeholder="Ingrese la descripción del tramite"
+              cols="20"
+              maxlength="300"></textarea>
+
+            </div> 
+
+          </div>
+
+          <div class="modal-footer d-flex justify-content-between">
+            
+            <div>
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
             </div>
 
-            <!-- <input type="text" class="form-control" name="descripcion_evaluacion" placeholder="Ingrese la descripción de la evaluación" value="{{--old("descripcion_evaluacion")--}}" maxlength="255" required> -->
-            <textarea class="form-control" rows="5" name="descripcion_evaluacion" required value="{{old('descripcion_evaluacion')}}"
-            placeholder="Ingrese la descripción de la evaluación"
-            maxlength="255"
-            ></textarea>
-          </div> 
+            <div>
+              <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
 
-        </div>
-
-        <div class="modal-footer d-flex justify-content-between">
-          
-          <div>
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
           </div>
 
-          <div>
-            <button type="submit" class="btn btn-primary">Guardar</button>
-          </div>
+        </form>
 
-        </div>
-
-      </form>
-
+      </div>
+      
     </div>
-    
+
   </div>
 
-</div>
+  <script>$("#crearTramite").modal()</script>
 
 
 <!--=====================================
@@ -191,15 +190,15 @@ Editar Evaluaciones
 
   @if ($status == 200)
 
-    @foreach ($evaluacion as $key => $value)
+    @foreach ($tramite as $key => $value)
   
-      <div class="modal" id="editarEvaluacion">
+      <div class="modal" id="editarTramite">
 
         <div class="modal-dialog">
 
           <div class="modal-content">
 
-            <form action="{{url('/')}}/evaluaciones/{{$value->id_evaluacion}}" method="post" enctype="multipart/form-data">
+            <form action="{{url('/')}}/tramites/{{$value->id_tramite}}" method="post" enctype="multipart/form-data">
 
               @method('PUT')
 
@@ -207,7 +206,7 @@ Editar Evaluaciones
               
               <div class="modal-header bg-info">
                 
-                <h4 class="modal-title">Editar Evaluacion</h4>
+                <h4 class="modal-title">Editar Tramite</h4>
 
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
 
@@ -216,30 +215,30 @@ Editar Evaluaciones
               <div class="modal-body">
 
                 
-                {{-- Título Evaluacion --}}
-                <label>Título de Evaluación</label> <br>
+                {{-- Título Tramite --}}
+                <label>Título del Tramite</label> <br>
                 <div class="input-group mb-3">
 
                   <div class="input-group-append input-group-text">
                     <i class="fas fa-list-ul"></i>
                   </div>
 
-                  <input type="text" class="form-control" name="titulo_evaluacion" placeholder="Ingrese el título de la evaluacion" value="{{$value->titulo_evaluacion}}">
+                  <input type="text" class="form-control" name="titulo_tramite" placeholder="Ingrese el título de la evaluacion" value="{{$value->titulo_tramite}}">
 
                 </div> 
 
-                {{-- Descripción Evaluacion --}}
-                <label>Descripción de la Evaluación</label> <br>
+                {{-- Descripción Tramite --}}
+                <label>Descripción del Tramite</label> <br>
                 <div class="input-group mb-3">
            
                   <div class="input-group-append input-group-text">
                     <i class="fas fa-pencil-alt"></i>
                   </div>
 
-                  <textarea class="form-control" rows="3" name="descripcion_evaluacion"
+                  <textarea class="form-control" rows="3" name="descripcion_tramite"
                   placeholder="Ingrese la descripción de la evaluación"
                   cols="20"
-                  maxlength="300">{{$value->descripcion_evaluacion}}</textarea>
+                  maxlength="300">{{$value->observaciones}}</textarea>
 
                 </div> 
 
@@ -267,7 +266,7 @@ Editar Evaluaciones
 
     @endforeach
 
-    <script>$("#editarEvaluacion").modal()</script>
+    <script>$("#editarTramite").modal()</script>
 
   @endif
 
@@ -278,7 +277,7 @@ Editar Evaluaciones
 @if (Session::has("ok-crear"))
 
   <script>
-      notie.alert({ type: 1, text: '¡Evaluación creada con Exito!', time: 10 })
+      notie.alert({ type: 1, text: '¡Tramite creado con Exito!', time: 10 })
  </script>
 
 @endif
@@ -286,7 +285,7 @@ Editar Evaluaciones
 @if (Session::has("no-validacion"))
 
 <script>
-    notie.alert({ type: 2, text: '¡Hay campos no válidos en el formulario!', time: 10 })
+    notie.alert({ type: 2, text: '¡Hay contenido no válido en el formulario!', time: 10 })
 </script>
 
 @endif
@@ -294,7 +293,7 @@ Editar Evaluaciones
 @if (Session::has("error"))
 
   <script>
-      notie.alert({ type: 3, text: '¡Error en el gestor de Evaluación!', time: 10 })
+      notie.alert({ type: 3, text: '¡Validar datos en el gestor de Tramites!', time: 10 })
  </script>
 
 @endif
@@ -302,7 +301,7 @@ Editar Evaluaciones
 @if (Session::has("ok-editar"))
 
   <script>
-      notie.alert({ type: 1, text: '¡La Evaluación ha sido actualizada correctamente!', time: 10 })
+      notie.alert({ type: 1, text: '¡El Tramite ha sido actualizado correctamente!', time: 10 })
  </script>
 
 @endif

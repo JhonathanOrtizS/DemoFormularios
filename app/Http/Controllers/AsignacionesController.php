@@ -39,7 +39,7 @@ class AsignacionesController extends Controller
   
 				return $titulo_evaluacion;
   
-			  }) 
+			  })
 			  ->addColumn('acciones', function($data){
 
 			  		$acciones = '<div class="btn-group">
@@ -59,7 +59,7 @@ class AsignacionesController extends Controller
 			  		return $acciones;
 
 			  })
-			  ->rawColumns(['name','titulo_evaluacion','acciones'])
+			  ->rawColumns(['name','titulo_evaluacion','evaluador','acciones'])
 			  -> make(true);
 
 		}
@@ -68,7 +68,12 @@ class AsignacionesController extends Controller
 		$administradores = Administradores::all();
 		$evaluaciones = Evaluaciones::all();
 
-		return view("paginas.asignaciones", array("blog"=>$blog, "administradores"=>$administradores, 'evaluaciones'=>$evaluaciones));
+		return view("paginas.asignaciones", 
+		array(
+			"blog"=>$blog, 
+			"administradores"=>$administradores, 
+			'evaluaciones'=>$evaluaciones
+		));
 
 	} 
 
@@ -154,14 +159,14 @@ class AsignacionesController extends Controller
 	 /**=============================================
 	 * CREAR REGISTRO DE ASIGNACION
 	 ==============================================*/
-	public function store(Request $resquest)
+	public function store(Request $request)
 	{
 		//Recoger datos
 		$datos = array(
-			"usuario" => $resquest->input('id_usuario'),
-			"evaluacion" => $resquest->input('asignar_evaluacion'),
-			"observacion" => $resquest->input('observaciones'),
-			"evaluador" => $resquest->input('id_evaluador')
+			"usuario" => $request->input('id_usuario'),
+			"evaluacion" => $request->input('asignar_evaluacion'),
+			"observacion" => $request->input('observaciones'),
+			"evaluador" => $request->input('id_evaluador')
 		);
 
 		if (!empty($datos)) {
@@ -184,6 +189,7 @@ class AsignacionesController extends Controller
 				$asignacion -> evaluacion_id = $datos['evaluacion'];
 				$asignacion -> observaciones = $datos['observacion'];
 				$asignacion -> evaluador = $datos['evaluador'];
+				$asignacion -> estatus = 0;
 				$asignacion -> save();
 
 				return redirect("asignaciones")->with("ok-crear", "");

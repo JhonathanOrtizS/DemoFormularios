@@ -5,4 +5,19 @@ https://programacion.net/articulo/como_crear_un_buscador_ajax_mediante_php_y_mys
 Controladores Laravel
 https://richos.gitbooks.io/laravel-5/content/capitulos/chapter11.html
 
+Paginación con Laravel
+https://parzibyte.me/blog/2020/06/24/laravel-paginacion-registros/
 
+
+
+@php
+    $tags = json_decode($respuesta->p_respuestas, true);
+
+    $palabras = '<h5>';
+
+    foreach ($tags as $key => $value) {
+        $palabras .= '<span class="badge badge-secondary mx-1">'.$value.'</span>';
+    }
+    $palabras .= '</h5>';
+    echo $palabras;
+    @endphp

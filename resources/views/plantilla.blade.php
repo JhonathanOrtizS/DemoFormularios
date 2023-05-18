@@ -115,6 +115,9 @@
 		<script src="{{url('/')}}/js/indicadores.js"></script>
 		<script src="{{url('/')}}/js/preguntas.js"></script>
 		<script src="{{url('/')}}/js/respuestas.js"></script>
+		<script src="{{url('/')}}/js/calificaciones.js"></script>
+		<script src="{{url('/')}}/js/tramites.js"></script>
+		<script src="{{url('/')}}/js/asignacion_tramite.js"></script>
 
 	</body>
 

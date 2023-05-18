@@ -5,7 +5,7 @@
     <!-- /.login-logo -->
     <div class="card card-outline card-primary">
 
-      <div class="card-header text-center">
+      <div class="card-header text-center bg-dark">
         <a href="" class="h1"><b>Eva</b>-180</a>
       </div>
 
@@ -28,7 +28,7 @@
 
                 </div>
 
-                <input id="email" type="email" class="form-control email_login @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus
+                <input id="email" type="email" class=" form-control email_login @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus
                 placeholder="Email">
 
                     @error('email')
@@ -67,7 +67,7 @@
 
 
             <div class="text-center">
-                <button class="btn btn-primary btn-block btn-flat" type="submit">Ingresar</button>
+                <button class="btn btn-primary btn-block btn-flat bg-info" type="submit">Ingresar</button>
             </div>
             
         </form>

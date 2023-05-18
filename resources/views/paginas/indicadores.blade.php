@@ -1,3 +1,9 @@
+@foreach ($administradores as $element)
+
+  @if (isset($_COOKIE["email_login"]) && $_COOKIE["email_login"] == $element->email)
+               
+    @if ($element->rol == "administrador" || $element->rol == "editor")
+
 @extends('plantilla')
 
 @section('content')
@@ -76,7 +82,7 @@
                       
                       <th>#</th>
                       <th>Evaluación</th>
-                      <th>Titulo</th>
+                      <th>Indicador</th>
                       <th>Descripción</th>
                       <th>Acciones</th>
   
@@ -359,3 +365,14 @@ Editar Indicadores
 @endif
 
 @endsection
+
+
+    @else
+
+      <script>window.location="{{url('/perfil')}}"</script>
+
+    @endif
+
+  @endif
+
+@endforeach 

@@ -23,3 +23,24 @@
     max-width: 50%;
     height: auto;
 }
+
+.imgPerfil img {
+    max-width: 50%;
+}
+
+.datosPersonales ol {
+    margin: 0px;
+    font-size: 1.5rem;
+}
+
+.iconEdit {
+    font-size: 25px;
+}
+
+.titleEvaluacion {
+    margin: auto;
+}
+
+.bodyEvaluacion {
+    text-align: center;
+}

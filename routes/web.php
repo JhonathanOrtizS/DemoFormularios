@@ -34,10 +34,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/search', 'AdministradoresController@search');
-//Route::get('/search', 'AsignacionesController@search');
-Route::post('/search', 'AsignacionesController@search');
 
+Route::post('/search', 'AsignacionesController@search');
+Route::post('/searchEva', 'VerEvaluacionesController@searchEva');
+Route::post('/searchTramite', 'VerEvaluacionesController@searchTramite');
 
 //RUTAS QUE INCLUYEN TODOS LOS MÉTODOS HTTP
 //Route::resource
@@ -47,9 +47,14 @@ Route::resource('/', 'BlogController');
 Route::resource('/blog', 'BlogController');
 Route::resource('/administradores', 'AdministradoresController');
 Route::resource('/asignaciones', 'AsignacionesController');
-//Route::resource('/asignaciones', 'AsignacionesController@search');
+
 Route::resource('/evaluaciones', 'EvaluacionesController');
 Route::resource('/indicadores', 'IndicadoresController');
 Route::resource('/preguntas', 'PreguntasController');
 Route::resource('/respuestas', 'RespuestasController');
 
+Route::resource('/perfil', 'PerfilController');
+Route::resource('/verEvaluaciones', 'VerEvaluacionesController');
+Route::resource('/tramites', 'TramitesController');
+Route::resource('/verTramites', 'VerTramitesController');
+Route::resource('/asignacion_tramite', 'AsignacionTramiteController');

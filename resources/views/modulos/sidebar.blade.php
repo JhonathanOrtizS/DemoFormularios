@@ -22,11 +22,11 @@
               
               @if ($element->foto == "")
 
-                 <img src="{{url('/')}}/vistas/img/admin.png" class="img-circle elevation-2" alt="User Image">
+                 <img src="{{url('/')}}/img/admin/admin.png" class="img-circle elevation-2 img-fluid" alt="User Image">
 
               @else
 
-                <img src="{{url('/')}}/{{$element->foto}}" class="img-circle elevation-2" alt="User Image">
+                <img src="{{url('/')}}/{{$element->foto}}" class="img-circle elevation-2 img-fluid" alt="User Image">
 
               @endif
 
@@ -71,7 +71,7 @@
                       ======================================-->
 
                       <li class="nav-item">
-                        <a href="{{ url("/") }}" class="nav-link">
+                        <a href="{{ url('/') }}" class="nav-link">
                           <i class="nav-icon fas fa-home"></i>
                           <p>Blog</p>
                         </a>
@@ -82,93 +82,89 @@
                       ======================================-->
 
                       <li class="nav-item">
-                        <a href="{{ url("/administradores") }}" class="nav-link">
+                        <a href="{{ url('/administradores') }}" class="nav-link">
                           <i class="nav-icon fas fa-users-cog"></i>
                           <p>Administradores</p>
                         </a>
                       </li>
+
+                      <!--=====================================
+                      Botón Asignaciones
+                      ======================================-->
+
+                      <li class="nav-item">
+                        <a href="{{ url('/asignacion_tramite') }}" class="nav-link">
+                          <i class="nav-icon fa-solid fa-pen-to-square"></i>
+                          <p>Asignaciones Tramites</p>
+                        </a>
+                      </li>
+                      
+                      <!--=====================================
+                      Botón Tramites
+                      ======================================-->
+
+                      <li class="nav-item">
+                        <a href="{{ url('/tramites') }}" class="nav-link">
+                          <i class="nav-icon fa-solid fa-sheet-plastic"></i>
+                          <p>Tramites</p>
+                        </a>
+                      </li>
                   
+                  @else
+
+                      <!--=====================================
+                      Perfil
+                      ======================================-->
+
+                      <li class="nav-item">
+                        <a href="{{ url('/perfil') }}" class="nav-link">
+                          <i class="nav-icon fa-solid fa-user"></i>
+                          <p>Perfil</p>
+                        </a>
+                      </li>
+
+                      <!--=====================================
+                      Botón Tramites
+                      ======================================-->
+
+                      <li class="nav-item">
+                        <a href="{{ url('/verTramites') }}" class="nav-link">
+                          <i class="nav-icon fa-solid fa-sheet-plastic"></i>
+                          <p>Tramites</p>
+                        </a>
+                      </li>
+
+                      <li class="nav-item">
+                        <a href="{{ url('/verEvaluaciones') }}" class="nav-link">
+                          <i class="nav-icon fa-solid fa-sheet-plastic"></i>
+                          <p>evaluaciones</p>
+                        </a>
+                      </li>
+
                   @endif
 
                 @endif
               
             @endforeach 
 
-          <!--=====================================
-          Botón Asignaciones
-          ======================================-->
-
-          <li class="nav-item">
-            <a href="{{ url("/asignaciones") }}" class="nav-link">
-              <i class="nav-icon fa-solid fa-pen-to-square"></i>
-              <p>Asignaciones</p>
-            </a>
-          </li>
-          
-          
-          <!--=====================================
-          Botón Evaluaciones
-          ======================================-->
-
-          <li class="nav-item">
-            <a href="{{ url("/evaluaciones") }}" class="nav-link">
-              <i class="nav-icon fa-solid fa-sheet-plastic"></i>
-              <p>Evaluaciones</p>
-            </a>
-          </li>
-
-
-          <!--=====================================
-          Botón Indicadores
-          ======================================-->
-
-          <li class="nav-item">
-            <a href="{{ url("/indicadores") }}" class="nav-link">
-              <i class="nav-icon fas fa-list-ul"></i>
-              <p>Indicadores</p>
-            </a>
-          </li>
-
-          <!--=====================================
-          Botón Preguntas
-          ======================================-->
-
-          <li class="nav-item">
-            <a href="{{ url("/preguntas") }}" class="nav-link">
-              <i class="nav-icon fas fa-sticky-note"></i>
-              <p>Preguntas</p>
-            </a>
-          </li>
-
-          <!--=====================================
-          Botón Preguntas
-          ======================================-->
-
-          <li class="nav-item">
-            <a href="{{ url("/respuestas") }}" class="nav-link">
-              <i class="nav-icon fa-solid fa-check-to-slot"></i>
-              <p>Respuestas</p>
-            </a>
-          </li>
-
 
           <!--=====================================
           BOTÓN SITIO WEB
-          ======================================-->
 
           <li class="nav-item">
           
-          <a href="{{ substr(url("/"),0,-11) }}" class="nav-link" target="_blank">
-            
-            <i class="nav-icon fas fa-globe"></i>
-            
-            <p>Ver sitio</p>
+            <a href="{{ substr(url('/'),0,-11) }}" class="nav-link" target="_blank">
+              
+              <i class="nav-icon fas fa-globe"></i>
+              
+              <p>Ver sitio</p>
 
-          </a>
+            </a>
 
-        </li>
+          </li>
+          ======================================-->
 
-
+          
 
         </ul>
 

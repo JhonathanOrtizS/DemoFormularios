@@ -1,8 +1,8 @@
 @foreach ($administradores as $element)
 
-@if ($_COOKIE["email_login"] == $element->email)
+  @if ($_COOKIE["email_login"] == $element->email)
                
-@if ($element->rol == "administrador")
+    @if ($element->rol == "administrador")
 
 @extends('plantilla')
 
@@ -423,6 +423,12 @@ Editar administrador
  
 @endif
 
+
+
+<!--=====================================
+ESTATUS DE SESSIONES
+======================================-->
+
   @if (Session::has("no-validacion"))
 
   <script>
@@ -465,9 +471,13 @@ Editar administrador
 
 @endsection
 
+    @elseif ($element->rol == "editor")
+
+      <script>window.location="{{url('/asignaciones')}}"</script>
+    
     @else
 
-    <script>window.location="{{url('/asignaciones')}}"</script>
+      <script>window.location="{{url('/perfil')}}"</script>
 
     @endif {{--Fin de if para determinar rol admin--}}
 
