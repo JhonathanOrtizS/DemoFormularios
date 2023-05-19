@@ -18,10 +18,9 @@ use Illuminate\Support\Facades\DB;
 
 class VerEvaluacionesController extends Controller
 {
-	//
+	//Mostrar todas las evaluaciones
 	public function index()
 	{
-
 		$blog = Blog::all();
 		$administradores = Administradores::all();
 		$evaluaciones = Evaluaciones::all();
@@ -42,9 +41,9 @@ class VerEvaluacionesController extends Controller
 	}
 
 
-	/**=============================================
-		* VER EVALUACIÓN ASIGNADA
-		==============================================*/
+	//==============================================
+	//VER EVALUACIÓN ASIGNADA
+	//==============================================
 	public function searchEva()
 	{
 		$dato = $_POST['query'];
@@ -93,10 +92,9 @@ class VerEvaluacionesController extends Controller
 
 	}
 
-
-	/**=============================================
-		   * VER EVALUACIÓN ASIGNADA
-		   ==============================================*/
+	//==============================================
+	// VER EVALUACIÓN ASIGNADA
+	//==============================================
 	public function store(Request $request)
 	{
 		$blog = Blog::all();

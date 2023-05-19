@@ -90,11 +90,9 @@
                             @foreach ($asignaciones as $i => $asig)
 
                               @if ($element->id == $asig['evaluador'])
-                              
-                              <tr>
-
                               {{--  Se deja como usuario evaluador para mostrar las evaluaciones asignadas
                                     esto determina la evaluación que debe realizar el usuario logueado --}}
+                              <tr>
 
                                 <td>{{ $key-1 }}</td>
                                 {{--  <td>{{ $asig['evaluacion_id'] }}</td>  --}}

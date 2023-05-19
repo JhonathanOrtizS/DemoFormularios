@@ -134,13 +134,6 @@
                         </a>
                       </li>
 
-                      <li class="nav-item">
-                        <a href="{{ url('/verEvaluaciones') }}" class="nav-link">
-                          <i class="nav-icon fa-solid fa-sheet-plastic"></i>
-                          <p>evaluaciones</p>
-                        </a>
-                      </li>
-
                   @endif
 
                 @endif

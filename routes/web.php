@@ -58,3 +58,6 @@ Route::resource('/verEvaluaciones', 'VerEvaluacionesController');
 Route::resource('/tramites', 'TramitesController');
 Route::resource('/verTramites', 'VerTramitesController');
 Route::resource('/asignacion_tramite', 'AsignacionTramiteController');
+
+/* Paginas de Tramites */
+Route::resource('/infoPublica', 'InformacionPublicaController');

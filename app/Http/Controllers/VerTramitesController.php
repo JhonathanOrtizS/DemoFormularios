@@ -5,14 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Administradores;
-use App\Asignaciones;
 use App\Blog;
-use App\Evaluaciones;
-use App\Indicadores;
 use App\Perfil;
-use App\Preguntas;
-use App\Respuestas;
 use App\Tramites;
+use App\AsignacionTramite;
+
+use Illuminate\Support\Facades\DB;
 
 class VerTramitesController extends Controller
 {
@@ -20,69 +18,121 @@ class VerTramitesController extends Controller
     public function index()
     {
         # code...
+        $join = DB::table('asignacion_tramite')
+            ->join('tramite', 'tramite.id_tramite', '=', 'asignacion_tramite.tramite_id')
+            ->select('asignacion_tramite.*', 'tramite.*')
+            ->get();
+
+        if (request()->ajax()) {
+            # code...
+            return datatables()->of($join)
+                ->addColumn('nombre_tramite', function ($data) {
+                    # code...
+                    $nombre_tramite = $data->nombre_tramite;
+                    return $nombre_tramite;
+                })
+                ->addColumn('observaciones', function ($data) {
+                    # code...
+                    $observaciones = $data->observaciones;
+                    return $observaciones;
+                })
+                ->addColumn('fecha_asignacion', function ($data) {
+                    # code...
+                    $fecha_asignacion = $data->fecha_asignacion;
+                    return $fecha_asignacion;
+                })
+                ->addColumn('estatus', function ($data) {
+                    # code...
+                    $estatus = $data->estatus;
+                    return $estatus;
+                })
+                ->addColumn('acciones', function ($data) {
+
+                    $acciones = '<div class="btn-group">
+                            
+                            <a href="' . url()->current() . '/' . $data->id_ag . '" class="btn btn-warning btn-sm">
+                                <i class="fas fa-pencil-alt text-white"></i>
+                            </a>
+
+                          </div>';
+
+                    return $acciones;
+
+                })
+                ->rawColumns(['nombre_tramite', 'observaciones', 'fecha_asignacion', 'estatus', 'acciones'])
+                ->make(true);
+        }
+
         $blog = Blog::all();
         $administradores = Administradores::all();
-        $usuarios = Perfil::all();
         $tramites = Tramites::paginate(10);
+        $asignaciones = AsignacionTramite::paginate(10);
 
         return view(
             "paginas.verTramites",
             array(
                 "blog" => $blog,
                 "administradores" => $administradores,
-                'usuarios' => $usuarios,
-                'tramites' => $tramites
+                'tramites' => $tramites,
+                'asignaciones' => $asignaciones
             )
         );
     }
 
-    /**=============================================
-     * VER EVALUACIÓN ASIGNADA
-     ==============================================*/
-    public function searchEva()
+    /*================================
+    MOSTRAR UN REGISTRO DE PREGUNTAS
+    ================================*/
+    public function show($id)
     {
-        $dato = $_POST['query'];
-
-        $asignacion = Asignaciones::where('id_asignacion', $dato)->get();
-        $asignaciones = Asignaciones::all();
+        $asignacion = AsignacionTramite::where('id_ag', $id)->get();
         $blog = Blog::all();
         $administradores = Administradores::all();
-        $usuarios = Perfil::all();
-        $indicadores = Indicadores::all();
-        $evaluaciones = Evaluaciones::all();
-        $preguntas = Preguntas::all();
-        $respuestas = Respuestas::all();
+        $tramite = Tramites::all();
+
+        $id_tramite = $asignacion['tramite_id'];
 
         if (count($asignacion) != 0) {
 
+            if ($asignacion['tramite_id'] == $tramite['id_tramite']) {
+
+                switch ($tramite['nombre_tramite']) {
+                    case 'Información Publica':
+                        return view(
+                            'paginas.infoPublica',
+                            array(
+                                'asignacion' => $asignacion,
+                                "blog" => $blog,
+                                'tramite' => $tramite,
+                                "administradores" => $administradores
+                            )
+                        );
+                        break;
+
+                    default:
+                        # code...
+                        break;
+                }
+
+
+            }
             return view(
-                'paginas.verEvaluaciones',
+                'paginas.verTramites',
                 array(
-                    'status' => 200,
+                    'status' => 500,
+                    'asignacion' => $asignacion,
                     "blog" => $blog,
-                    "asignacion" => $asignacion,
-                    "administradores" => $administradores,
-                    "usuarios" => $usuarios,
-                    "asignaciones" => $asignaciones,
-                    "evaluaciones" => $evaluaciones,
-                    "indicadores" => $indicadores,
-                    "preguntas" => $preguntas,
-                    "respuestas" => $respuestas
+                    "administradores" => $administradores
                 )
             );
-            //return redirect('/administradores') -> with('ok-editar', '');
-
         } else {
-
             return view(
-                'paginas.verEvaluaciones',
+                'paginas.verTramites',
                 array(
                     'status' => 404,
                     "blog" => $blog,
                     "administradores" => $administradores
                 )
             );
-
         }
 
     }

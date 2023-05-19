@@ -118,6 +118,7 @@
 		<script src="{{url('/')}}/js/calificaciones.js"></script>
 		<script src="{{url('/')}}/js/tramites.js"></script>
 		<script src="{{url('/')}}/js/asignacion_tramite.js"></script>
+		<script src="{{url('/')}}/js/tramite_asignado.js"></script>
 
 	</body>
 

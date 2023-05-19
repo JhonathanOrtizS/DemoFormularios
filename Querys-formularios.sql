@@ -20,4 +20,22 @@ create table tramite (
 
 alter table asignacion_tramite add obsernaciones_tramite text;
 alter table asignacion_tramite modify id_ag int auto_increment;
-alter table tramite change nombre nombre_tramite varchar(150);
+alter table asignacion_tramite change obsernaciones_tramite observaciones_asignacion text;
+
+create table informacion_publica (
+	id_ip int not null,
+    codigo_tramite varchar(15),
+    numero int not null,
+    referencia int not null,
+    fecha_solicitud date,
+    contacto varchar(120),
+    direccion varchar(150),
+    telefono int(10),
+    municipio varchar(25),
+    cui int(15),
+    detalle_solicitud text,
+    estatus varchar(10),
+    created_at timestamp null,
+    updated_at timestamp null,
+    primary key (id_ip)
+);
