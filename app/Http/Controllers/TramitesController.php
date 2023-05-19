@@ -102,7 +102,7 @@ class TramitesController extends Controller
             }
 
         } else {
-            return redirect("evaluaciones")->with("error", "");
+            return redirect("tramites")->with("error", "");
         }
 
     }

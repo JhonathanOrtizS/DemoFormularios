@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Administradores;
 use App\Blog;
 use App\Tramites;
+use App\AsignacionTramite;
 
 use Illuminate\Support\Facades\DB;
 
@@ -32,11 +33,25 @@ class AsignacionTramiteController extends Controller
                     return $name;
 
                 })
-                ->addColumn('titulo_evaluacion', function ($data) {
+                ->addColumn('nombre_tramite', function ($data) {
 
-                    $titulo_evaluacion = $data->titulo_evaluacion;
+                    $nombre_tramite = $data->nombre_tramite;
 
-                    return $titulo_evaluacion;
+                    return $nombre_tramite;
+
+                })
+                ->addColumn('observaciones', function ($data) {
+
+                    $observaciones = $data->observaciones;
+
+                    return $observaciones;
+
+                })
+                ->addColumn('fecha_asignacion', function ($data) {
+
+                    $fecha_asignacion = $data->fecha_asignacion;
+
+                    return $fecha_asignacion;
 
                 })
                 ->addColumn('estatus', function ($data) {
@@ -50,13 +65,13 @@ class AsignacionTramiteController extends Controller
 
                     $acciones = '<div class="btn-group">
 								
-								<a href="' . url()->current() . '/' . $data->id_asignacion . '" class="btn btn-warning btn-sm">
+								<a href="' . url()->current() . '/' . $data->id_ag . '" class="btn btn-warning btn-sm">
 									<i class="fas fa-pencil-alt text-white"></i>
 								</a>
 
 								<button class="btn btn-danger btn-sm eliminarRegistro" 
-									action="' . url()->current() . '/' . $data->id_asignacion . '" 
-									method="DELETE" pagina="asignaciones" token="' . csrf_token() . '">
+									action="' . url()->current() . '/' . $data->id_ag . '" 
+									method="DELETE" pagina="asignacion_tramite" token="' . csrf_token() . '">
 										<i class="fas fa-trash-alt"></i>
 								</button>
 
@@ -65,7 +80,7 @@ class AsignacionTramiteController extends Controller
                     return $acciones;
 
                 })
-                ->rawColumns(['name', 'titulo_evaluacion', 'evaluador', 'estatus', 'acciones'])
+                ->rawColumns(['name', 'nombre_tramite', 'observaciones', 'fecha_asignacion', 'estatus', 'acciones'])
                 ->make(true);
 
         }
@@ -84,6 +99,56 @@ class AsignacionTramiteController extends Controller
                 'usuarios' => $usuarios
             )
         );
+
+    }
+
+
+    /**=============================================
+     * CREAR REGISTRO DE ASIGNACION
+     ==============================================*/
+    public function store(Request $request)
+    {
+        //Recoger datos
+        $datos = array(
+            "usuario" => $request->input('id_user'),
+            "tramite" => $request->input('id_tramite'),
+            "estatus" => $request->input('estatus'),
+            "observacion" => $request->input('observacion_asignacion')
+        );
+
+        //Recoger fecha
+        $fechaActual = date('Y-m-d');
+
+        if (!empty($datos)) {
+
+            $validar = \Validator::make($datos, [
+                "usuario" => "required|regex:/^\d+$/",
+                "tramite" => "required|regex:/^\d+$/",
+                "estatus" => 'required|regex:/^[a-z]+(?: [a-z]+)?$/i',
+                "observacion" => 'required|regex:/^[\p{L}\p{N}\sáéíóúÁÉÍÓÚñÑ,.\-()]+$/u',
+            ]);
+
+            if ($validar->fails()) {
+
+                return redirect("asignacion_tramite")->with("no-validacion", "");
+                # code...
+            } else {
+
+                $asignacion = new AsignacionTramite();
+                $asignacion->user_id = $datos['usuario'];
+                $asignacion->tramite_id = $datos['tramite'];
+                $asignacion->fecha_asignacion = $fechaActual;
+                $asignacion->estatus = $datos['estatus'];
+                $asignacion->observaciones_asignacion = $datos['observacion'];
+                $asignacion->save();
+
+                return redirect("asignacion_tramite")->with("ok-crear", "");
+
+            }
+
+        } else {
+            return redirect("asignacion_tramite")->with("error", "");
+        }
 
     }
 }

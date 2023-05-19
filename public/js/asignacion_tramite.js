@@ -12,7 +12,7 @@ DATA TABLE ADMIN MANEJO CON SERVIDOR CON COMPOSER
 });*/
 
 /*=============================================
-DATA TABLE ADMIN
+DATA TABLE 
 =============================================*/
 
 //establecemos una variable esto se hace cuando ya estamos trabajando con la libreria de dataTable

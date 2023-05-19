@@ -199,7 +199,7 @@
 
               <div class="modal-header bg-info">
 
-                <h4 class="modal-title"> Informe de Evaluaciones </h4>
+                <h4 class="modal-title"> Informe de Tramites </h4>
 
               </div>
 
@@ -249,7 +249,7 @@
                             
                             <div class="modal-header bg-blue">
 
-                              <h4 class="modal-title titleEvaluacion">Evaluaciones </h4>
+                              <h4 class="modal-title titleEvaluacion">Tramites </h4>
 
                             </div>
 
@@ -298,40 +298,6 @@
                         
                     </div>
                     <!-- EVALUACIONES -->
-                    
-                  
-                    <!-- PROMEDIO -->
-                    <div class="col-lg-3">
-                        
-                        <div class="card">
-                            
-                            <div class="modal-header bg-green">
-
-                              <h4 class="modal-title titleEvaluacion">Promedio </h4>
-
-                            </div>
-
-                            <div class="modal-body bodyEvaluacion">
-
-                              <div class="col-lg-12">
-  
-                                <div class="">
-                                  
-                                  <p>Promedio de Evaluaciones</p>
-                                  <h3 class="modal-title"> {{$cont2}} </h3>
-                                  
-                                </div>
-
-                              </div>
-
-                            </div>
-
-                        </div>
-                        
-                    </div>
-                    <!-- PROMEDIO -->
-                    
-                    
 
                 </div>
 

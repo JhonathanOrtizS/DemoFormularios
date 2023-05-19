@@ -13,54 +13,55 @@ use Illuminate\Support\Facades\DB;
 
 class AsignacionesController extends Controller
 {
-    //
-    public function index(){
+	//
+	public function index()
+	{
 
 		//para mostrar datos conjuntos de 2 tablas
 		$join = DB::table('asignaciones')
-		->join('users','users.id','=','asignaciones.user_id')
-		->join('evaluaciones','evaluaciones.id_evaluacion','=','asignaciones.evaluacion_id')
-		->select('asignaciones.*','users.*','evaluaciones.*')
-		->get();
+			->join('users', 'users.id', '=', 'asignaciones.user_id')
+			->join('evaluaciones', 'evaluaciones.id_evaluacion', '=', 'asignaciones.evaluacion_id')
+			->select('asignaciones.*', 'users.*', 'evaluaciones.*')
+			->get();
 
-    	if(request()->ajax()){ 
+		if (request()->ajax()) {
 
-			  return datatables()->of($join)
-			  ->addColumn('name', function($data){
+			return datatables()->of($join)
+				->addColumn('name', function ($data) {
 
-				$name = $data->name;
-  
-				return $name;
-  
-			  }) 
-			  ->addColumn('titulo_evaluacion', function($data){
+					$name = $data->name;
 
-				$titulo_evaluacion = $data->titulo_evaluacion;
-  
-				return $titulo_evaluacion;
-  
-			  })
-			  ->addColumn('acciones', function($data){
+					return $name;
 
-			  		$acciones = '<div class="btn-group">
+				})
+				->addColumn('titulo_evaluacion', function ($data) {
+
+					$titulo_evaluacion = $data->titulo_evaluacion;
+
+					return $titulo_evaluacion;
+
+				})
+				->addColumn('acciones', function ($data) {
+
+					$acciones = '<div class="btn-group">
 								
-								<a href="'.url()->current().'/'.$data->id_asignacion.'" class="btn btn-warning btn-sm">
+								<a href="' . url()->current() . '/' . $data->id_asignacion . '" class="btn btn-warning btn-sm">
 									<i class="fas fa-pencil-alt text-white"></i>
 								</a>
 
 								<button class="btn btn-danger btn-sm eliminarRegistro" 
-									action="'.url()->current().'/'.$data->id_asignacion.'" 
-									method="DELETE" pagina="asignaciones" token="'.csrf_token().'">
+									action="' . url()->current() . '/' . $data->id_asignacion . '" 
+									method="DELETE" pagina="asignaciones" token="' . csrf_token() . '">
 										<i class="fas fa-trash-alt"></i>
 								</button>
 
 			  				</div>';
 
-			  		return $acciones;
+					return $acciones;
 
-			  })
-			  ->rawColumns(['name','titulo_evaluacion','evaluador','acciones'])
-			  -> make(true);
+				})
+				->rawColumns(['name', 'titulo_evaluacion', 'evaluador', 'acciones'])
+				->make(true);
 
 		}
 
@@ -68,57 +69,65 @@ class AsignacionesController extends Controller
 		$administradores = Administradores::all();
 		$evaluaciones = Evaluaciones::all();
 
-		return view("paginas.asignaciones", 
-		array(
-			"blog"=>$blog, 
-			"administradores"=>$administradores, 
-			'evaluaciones'=>$evaluaciones
-		));
+		return view(
+			"paginas.asignaciones",
+			array(
+				"blog" => $blog,
+				"administradores" => $administradores,
+				'evaluaciones' => $evaluaciones
+			)
+		);
 
-	} 
+	}
 
 
 
-    /**=============================================
+	/**=============================================
 	 * MOSTRAR UN SOLO REGISTRO
 	 * para enviarlo a un modal de edición
 	 ==============================================*/
 
-	 public function show($id)
-	 {
-		
+	public function show($id)
+	{
+
 		$asignacion = Asignaciones::where('id_asignacion', $id)->get();
 		$blog = Blog::all();
 		$administradores = Administradores::all();
 		$evaluaciones = Evaluaciones::all();
-		
-		if ( count($asignacion) != 0 ) {
-			
-			return view('paginas.asignaciones', 
-			array('status' => 200, 
-			'asignacion' => $asignacion, 
-			"blog" =>$blog, 
-			"administradores" => $administradores,
-			"evaluaciones" => $evaluaciones
-		));
+
+		if (count($asignacion) != 0) {
+
+			return view(
+				'paginas.asignaciones',
+				array(
+					'status' => 200,
+					'asignacion' => $asignacion,
+					"blog" => $blog,
+					"administradores" => $administradores,
+					"evaluaciones" => $evaluaciones
+				)
+			);
 			//return redirect('/administradores') -> with('ok-editar', '');
 
 		} else {
-			
-			return view('paginas.asignaciones', 
-			array('status' => 404, 
-			"blog"=>$blog, 
-			"administradores" => $administradores
-		));
+
+			return view(
+				'paginas.asignaciones',
+				array(
+					'status' => 404,
+					"blog" => $blog,
+					"administradores" => $administradores
+				)
+			);
 
 		}
-	 }
+	}
 
 
 
-	 /**=============================================
-	 * BUSCAR USUARIO PARA ASIGNAR EVALUACION
-	 ==============================================*/
+	/**=============================================
+	   * BUSCAR USUARIO PARA ASIGNAR EVALUACION
+	   ==============================================*/
 	public function search()
 	{
 		//$dato = $_GET['query'];
@@ -130,35 +139,42 @@ class AsignacionesController extends Controller
 		$blog = Blog::all();
 		$administradores = Administradores::all();
 		$evaluaciones = Evaluaciones::all();
-		
-		if ( count($admin) != 0 ) {
-			
-			return view('paginas.asignaciones', 
-			array('status' => 202, 
-			'admin' => $admin,
-			"user" => $user,
-			"blog" =>$blog, 
-			"administradores" => $administradores,
-			"evaluaciones" => $evaluaciones
-		));
+
+		if (count($admin) != 0) {
+
+			return view(
+				'paginas.asignaciones',
+				array(
+					'status' => 202,
+					'admin' => $admin,
+					"user" => $user,
+					"blog" => $blog,
+					"administradores" => $administradores,
+					"evaluaciones" => $evaluaciones
+				)
+			);
 			//return redirect('/administradores') -> with('ok-editar', '');
 
 		} else {
-			
-			return view('paginas.asignaciones', 
-			array('status' => 404, 
-			"blog"=>$blog, 
-			"administradores" => $administradores));
+
+			return view(
+				'paginas.asignaciones',
+				array(
+					'status' => 404,
+					"blog" => $blog,
+					"administradores" => $administradores
+				)
+			);
 
 		}
-		
+
 	}
 
 
 
-	 /**=============================================
-	 * CREAR REGISTRO DE ASIGNACION
-	 ==============================================*/
+	/**=============================================
+	   * CREAR REGISTRO DE ASIGNACION
+	   ==============================================*/
 	public function store(Request $request)
 	{
 		//Recoger datos
@@ -170,46 +186,46 @@ class AsignacionesController extends Controller
 		);
 
 		if (!empty($datos)) {
-			
+
 			$validar = \Validator::make($datos, [
 				"usuario" => "required|regex:/^[0-9]+/",
 				"evaluacion" => "required|regex:/^[0-9]+/",
-				"observacion"=>'required|regex:/^[(\\)\\=\\&\\$\\;\\-\\_\\*\\"\\<\\>\\?\\¿\\!\\¡\\:\\,\\.\\0-9a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$/i',
-				"usuario" => "required|regex:/^[0-9]+/"
+				"observacion" => 'required|regex:/^[(\\)\\=\\&\\$\\;\\-\\_\\*\\"\\<\\>\\?\\¿\\!\\¡\\:\\,\\.\\0-9a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$/i',
+				"evaluador" => "required|regex:/^[0-9]+/"
 			]);
 
-			if ($validar -> fails()) {
+			if ($validar->fails()) {
 
 				return redirect("asignaciones")->with("no-validacion", "");
 				# code...
 			} else {
-				
+
 				$asignacion = new Asignaciones();
-				$asignacion -> user_id = $datos['usuario'];
-				$asignacion -> evaluacion_id = $datos['evaluacion'];
-				$asignacion -> observaciones = $datos['observacion'];
-				$asignacion -> evaluador = $datos['evaluador'];
-				$asignacion -> estatus = 0;
-				$asignacion -> save();
+				$asignacion->user_id = $datos['usuario'];
+				$asignacion->evaluacion_id = $datos['evaluacion'];
+				$asignacion->observaciones = $datos['observacion'];
+				$asignacion->evaluador = $datos['evaluador'];
+				$asignacion->estatus = 0;
+				$asignacion->save();
 
 				return redirect("asignaciones")->with("ok-crear", "");
-				
+
 			}
-			
+
 		} else {
 			return redirect("asignaciones")->with("error", "");
 		}
-		
-		
+
+
 	}
 
 
 	/**=============================================
-	 * ACTUALIZAR REGISTRO DE ASIGNACION
-	 ==============================================*/
+		* ACTUALIZAR REGISTRO DE ASIGNACION
+		==============================================*/
 	public function update($id, Request $request)
 	{
-		
+
 		//Recoleccion de Datos
 		$datos = array(
 			"evaluacion" => $request->input('asignar_evaluacion'),
@@ -239,17 +255,17 @@ class AsignacionesController extends Controller
 				return redirect("asignaciones")->with("ok-editar", "");
 
 			}
-			
+
 		} else {
-			
+
 		}
 
 	}
 
 
 	/**=============================================
-	 * ELIMINAR REGISTRO DE ASIGNACION
-	 ==============================================*/
+		* ELIMINAR REGISTRO DE ASIGNACION
+		==============================================*/
 	public function destroy($id, Request $request)
 	{
 		$validar = Asignaciones::where('id_asignacion', $id)->get();
@@ -259,9 +275,9 @@ class AsignacionesController extends Controller
 
 			$asignacion = Asignaciones::where('id_asignacion', $validar[0]['id_asignacion'])->delete();
 			return 'Ok';
-			
+
 		} else {
-			return redirect('/asignaciones') -> with('no-borrar', '');# code...
+			return redirect('/asignaciones')->with('no-borrar', ''); # code...
 		}
 	}
 }

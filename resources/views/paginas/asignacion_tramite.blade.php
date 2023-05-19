@@ -122,7 +122,7 @@ Crear Asignaciones
 
         <div class="modal-content">
 
-            <form action="{{url('/')}}/tramites" method="post" enctype="multipart/form-data">
+            <form action="{{url('/')}}/asignacion_tramite" method="post" enctype="multipart/form-data">
 
             @csrf
             
@@ -168,13 +168,13 @@ Crear Asignaciones
 
                     <select class="form-control"  name="id_user" required>
 
-                    <option value=""  selected>Seleccione Usuario</option>
+                      <option value=""  selected>Seleccione Usuario</option>
 
-                    @foreach ($usuarios as $key => $val)
+                      @foreach ($usuarios as $key => $val)
                     
                         <option value="{{$val->id}}">{{$val->name}}</option>
 
-                    @endforeach
+                      @endforeach
 
                     </select>
 
@@ -201,18 +201,30 @@ Crear Asignaciones
 
                 </div>
 
+                {{-- Fecha de Tramite --}}
+                <label>Fecha de Asignación </label> <br>
+                <div class="input-group mb-3">
+
+                  <div class="input-group-append input-group-text">
+                      <i class="fa-solid fa-calendar-days"></i>
+                  </div>
+
+                  <input type="date" id="fechaInput" class="form-control" name="" placeholder="Ingrese el título del tramite" readonly>
+
+                </div>
+
                 {{-- Descripción Tramite --}}
                 <label>Descripción del Tramite</label> <br>
                 <div class="input-group mb-3">
             
-                <div class="input-group-append input-group-text">
-                    <i class="fas fa-pencil-alt"></i>
-                </div>
+                    <div class="input-group-append input-group-text">
+                        <i class="fas fa-pencil-alt"></i>
+                    </div>
 
-                <textarea class="form-control" rows="3" name="observacion_tramite"
-                placeholder="Ingrese la descripción del tramite"
-                cols="20"
-                maxlength="300"></textarea>
+                    <textarea class="form-control" rows="3" name="observacion_asignacion"
+                    placeholder="Ingrese la descripción del tramite"
+                    cols="20"
+                    maxlength="300"></textarea>
 
                 </div> 
 
@@ -239,6 +251,19 @@ Crear Asignaciones
 </div>
 
 <script>$("#crearAsignacionTramite").modal()</script>
+<script>
+    // Obtener el elemento del input por su id
+    var fechaInput = document.getElementById("fechaInput");
+
+    // Obtener la fecha actual
+    var fechaActual = new Date();
+
+    // Formatear la fecha para asignarla al valor del input
+    var formatoFecha = fechaActual.toISOString().split('T')[0];
+
+    // Asignar la fecha formateada al valor del input
+    fechaInput.value = formatoFecha;
+  </script>
 
 
   <!--=====================================
@@ -390,7 +415,7 @@ Crear Asignaciones
   @if (Session::has("ok-crear"))
 
     <script>
-        notie.alert({ type: 1, text: '¡Categoria creada con Exito!', time: 10 })
+        notie.alert({ type: 1, text: '¡Asginación creada con Exito!', time: 10 })
   </script>
 
   @endif
@@ -406,7 +431,7 @@ Crear Asignaciones
   @if (Session::has("error"))
 
     <script>
-        notie.alert({ type: 3, text: '¡Error en el gestor de Categorias!', time: 10 })
+        notie.alert({ type: 3, text: '¡Error en el gestor de Asignaciones!', time: 10 })
   </script>
 
   @endif
@@ -414,7 +439,7 @@ Crear Asignaciones
   @if (Session::has("ok-editar"))
 
     <script>
-        notie.alert({ type: 1, text: '¡La categoria ha sido actualizada correctamente!', time: 10 })
+        notie.alert({ type: 1, text: '¡La Asignación ha sido actualizada correctamente!', time: 10 })
   </script>
 
   @endif
@@ -422,7 +447,7 @@ Crear Asignaciones
   @if (Session::has("no-borrar"))
 
     <script>
-        notie.alert({ type: 3, text: '¡Error al eliminar la Categoria!', time: 10 })
+        notie.alert({ type: 3, text: '¡Error al eliminar la Asignación!', time: 10 })
   </script>
 
   @endif
