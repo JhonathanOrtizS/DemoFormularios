@@ -9,6 +9,7 @@ use App\Blog;
 use App\Perfil;
 use App\Tramites;
 use App\AsignacionTramite;
+use App\InformacionPublica;
 
 use Illuminate\Support\Facades\DB;
 
@@ -90,6 +91,13 @@ class VerTramitesController extends Controller
         $blog = Blog::all();
         $administradores = Administradores::all();
         $tramite = Tramites::all();
+        $ip = InformacionPublica::all();
+
+        /**
+         * Se debe buscar por el codigo del tramite, ya que el id 
+         * de cada tramite tiene un valor repetitivo por ejemplo 1,2,3...
+         * para ser enviada la informacion al formulario correspondiente
+         */
 
         $id_tramite = $asignacion['tramite_id'];
 
