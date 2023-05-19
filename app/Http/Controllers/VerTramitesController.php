@@ -80,7 +80,9 @@ class VerTramitesController extends Controller
     }
 
     /*================================
-    MOSTRAR UN REGISTRO DE PREGUNTAS
+    MOSTRAR UN REGISTRO SELECCIONANDO
+    PARA ENVIARLO A LA PAGINA CORRESPONDIENTE DEL
+    TRAMITE ASIGNADO
     ================================*/
     public function show($id)
     {
