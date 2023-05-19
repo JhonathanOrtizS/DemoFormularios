@@ -77,9 +77,10 @@
                       
                       <th>#</th>
                       <th> Tramite </th>
-                      <th> Contacto </th>
+                      <th> Codigo </th>
                       <th> Observaciones del Tramite</th>
                       <th> Fecha Asignación </th>
+                      <th> Fecha Finalización </th>
                       <th> Estatus </th>
                       <th> Acciones </th>
   
