@@ -18,7 +18,7 @@ create table tramite (
     primary key (id_tramite)
 );
 
-alter table asignacion_tramite add obsernaciones_tramite text;
+alter table asignacion_tramite add tramite_cod varchar(15);
 alter table asignacion_tramite modify id_ag int auto_increment;
 alter table asignacion_tramite change obsernaciones_tramite observaciones_asignacion text;
 
