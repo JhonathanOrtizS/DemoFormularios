@@ -134,6 +134,13 @@
                         </a>
                       </li>
 
+                      <li class="nav-item">
+                        <a href="{{ url('/infoPublica') }}" class="nav-link">
+                          <i class="nav-icon fa-solid fa-sheet-plastic"></i>
+                          <p>InformacionPublica</p>
+                        </a>
+                      </li>
+
                   @endif
 
                 @endif

@@ -49,8 +49,8 @@ class EvaluacionesController extends Controller
 
 
 	/*================================
-	   CREAR UN REGISTRO DE EVALUACIONES
-	   ================================*/
+		  CREAR UN REGISTRO DE EVALUACIONES
+		  ================================*/
 	public function store(Request $request)
 	{
 		//recoger los datos
@@ -89,8 +89,8 @@ class EvaluacionesController extends Controller
 
 
 	/*================================
-	MOSTRAR UN SOLO REGISTRO DE EVALUACIONES
-	================================*/
+	   MOSTRAR UN SOLO REGISTRO DE EVALUACIONES
+	   ================================*/
 	public function show($id)
 	{
 		$evaluacion = Evaluaciones::where('id_evaluacion', $id)->get();
@@ -126,8 +126,8 @@ class EvaluacionesController extends Controller
 
 
 	/*================================
-	   EDITAR UN REGISTRO DE EVALUACIONES
-	   ================================*/
+		  EDITAR UN REGISTRO DE EVALUACIONES
+		  ================================*/
 	public function update($id, Request $request)
 	{
 		//recoger los datos
@@ -167,8 +167,8 @@ class EvaluacionesController extends Controller
 
 
 	/*=============================================
-	   Eliminar un registro
-	   =============================================*/
+		  Eliminar un registro
+		  =============================================*/
 	public function destroy($id, Request $request)
 	{
 
