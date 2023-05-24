@@ -25,7 +25,10 @@ var verTramiteAsignado = $("#verTramiteAsignado").DataTable({
     processing: true,
     serverSide: true,
     ajax: {
-        url: ruta + "/verTramites"
+        url: ruta + "/verTramites",
+        data: {
+            usuario_id: usuarioId
+        }
     },
     //vamos a poner orden a los id, que no muestre el id del usuario de la DB
     //sino que muestre como un contador en la tabla
@@ -33,10 +36,10 @@ var verTramiteAsignado = $("#verTramiteAsignado").DataTable({
         {
             searchable: true,
             orderable: true,
-            targets: 1
+            targets: 0
         }
     ],
-    order: [[1, "desc"]],
+    order: [[0, "desc"]],
     //ahora vamos a pedir que lo construlla en las siguientes columnas
     columns: [
         {

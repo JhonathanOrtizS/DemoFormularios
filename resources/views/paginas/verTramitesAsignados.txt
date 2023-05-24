@@ -1,0 +1,68 @@
+@php
+                      $key = 0;
+                      @endphp
+
+                      @foreach ($usuarios as $key => $element)
+
+                        @if (isset($_COOKIE["email_login"]) && $_COOKIE["email_login"] == $element->email)
+
+                          @foreach ($asignaciones as $i => $asig)
+
+                            @if ($element->id == $asig['user_id'])
+                              <tr>
+                                <td>{{ $key-1 }}</td>
+                                <td>{{ $asig['titulo_tramite'] }}</td>
+                                <td>{{ $asig['observaciones_asignacion'] }}</td>
+                                <td>{{ $asig['fecha_asignacion'] }}</td>
+                                <td>{{ $asig['fecha_finalizacion'] }}</td>
+                                <td>{{ $asig['estatus'] }}</td>
+                                
+                                <!-- CONDICION PARA EDITAR O MOSTRAR LA INFO
+                                QUE TIENE EL FORMULARIO SEGUN EL ESTATUS -->                                
+                                @if ($asig['estatus'] == 0)
+                                    <td> Pendiente </td> 
+                                    <td>
+                                      <form method="post" action="{{ url('/') }}">
+                                      @csrf
+                                    
+                                          <input hidden type="text" class="form-control" name="query" value="{{ $asig['id_ag'] }}" required>
+
+                                          <div>
+                                            <button type="submit" class="btn btn-warning btn-sm">
+                                              <i class="fas fa-pencil-alt text-white"></i>
+                                            </button>
+                                          </div>
+
+                                        </div>
+
+                                      </form>
+                                    </td>   
+                                  @endif
+                                  @if ($asig['estatus'] == 1)
+                                    <td> Completa </td>
+                                    <td>  
+                                      <div class="btn-group">
+								
+                                        <a  class="btn  btn-sm">
+                                          <i class="fa-solid fa-check text-success"></i>
+                                        </a>
+
+                                        <form action="{{ url('/searchEva') }}" method="post">
+                                          @csrf
+                                          <input type="text" class="form-control"  value="{{$asig['id_asignacion']}}" name="query" required hidden>
+                                          <button type="submit" class="btn btn-primary btn-sm">
+                                            <i class="fa-solid fa-eye"></i>
+                                          </button>
+
+                                        </form>
+
+                                      </div>
+                                    </td>
+                                  </tr>
+                                  @endif
+
+                              </tr>
+                            @endif
+                          @endforeach
+                        @endif
+                      @endforeach

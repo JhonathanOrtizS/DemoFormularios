@@ -90,7 +90,6 @@
                   </thead>
   
                   <tbody>
-                      
                  
   
                   </tbody>
@@ -120,6 +119,9 @@
   </section>
   <!-- /.content -->
 </div>
+<script>
+    var usuarioId = {{ $usuario->id }};
+</script>
 
 
   <!-- -->

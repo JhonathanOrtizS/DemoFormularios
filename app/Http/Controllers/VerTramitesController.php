@@ -18,9 +18,17 @@ class VerTramitesController extends Controller
     public function index()
     {
         # code...
+        $usuarioActual = auth()->user();
+
+        /*$join = DB::table('asignacion_tramite AS at')
+            ->join('users', 'users.id', '=', 'at.user_id')
+            ->select('at.*', 'users.*')
+            ->get(); */
+
         $join = DB::table('asignacion_tramite AS at')
             ->join('users', 'users.id', '=', 'at.user_id')
             ->select('at.*', 'users.*')
+            ->where('users.id', $usuarioActual->id)
             ->get();
 
         if (request()->ajax()) {
@@ -73,6 +81,7 @@ class VerTramitesController extends Controller
         $administradores = Administradores::all();
         $tramites = Tramites::paginate(10);
         $asignaciones = AsignacionTramite::paginate(10);
+        $usuario = Administradores::all();
 
         return view(
             "paginas.verTramites",
@@ -80,7 +89,8 @@ class VerTramitesController extends Controller
                 "blog" => $blog,
                 "administradores" => $administradores,
                 'tramites' => $tramites,
-                'asignaciones' => $asignaciones
+                'asignaciones' => $asignaciones,
+                'usuario' => $usuarioActual
             )
         );
     }
@@ -95,53 +105,22 @@ class VerTramitesController extends Controller
         $asignacion = AsignacionTramite::where('id_ag', $id)->get();
         $blog = Blog::all();
         $administradores = Administradores::all();
-        $tramite = Tramites::all();
-        $ip = InformacionPublica::all();
-
-        /**
-         * Se debe buscar por el codigo del tramite, ya que el id 
-         * de cada tramite tiene un valor repetitivo por ejemplo 1,2,3...
-         * para ser enviada la informacion al formulario correspondiente
-         */
-
-        $id_tramite = $asignacion['tramite_id'];
+        $infop = InformacionPublica::all();
 
         if (count($asignacion) != 0) {
-
-            if ($asignacion['tramite_id'] == $tramite['id_tramite']) {
-
-                switch ($tramite['nombre_tramite']) {
-                    case 'Información Publica':
-                        return view(
-                            'paginas.infoPublica',
-                            array(
-                                'asignacion' => $asignacion,
-                                "blog" => $blog,
-                                'tramite' => $tramite,
-                                "administradores" => $administradores
-                            )
-                        );
-                        break;
-
-                    default:
-                        # code...
-                        break;
-                }
-
-
-            }
             return view(
-                'paginas.verTramites',
+                'paginas.infoPublica',
                 array(
-                    'status' => 500,
-                    'asignacion' => $asignacion,
+                    'status' => 200,
                     "blog" => $blog,
-                    "administradores" => $administradores
+                    'asignacion' => $asignacion,
+                    "administradores" => $administradores,
+                    'infoP' => $infop
                 )
             );
         } else {
             return view(
-                'paginas.verTramites',
+                'paginas.infoPublica',
                 array(
                     'status' => 404,
                     "blog" => $blog,
@@ -150,6 +129,59 @@ class VerTramitesController extends Controller
             );
         }
 
+        /**
+         * Se debe buscar por el codigo del tramite, ya que el id 
+         * de cada tramite tiene un valor repetitivo por ejemplo 1,2,3...
+         * para ser enviada la informacion al formulario correspondiente
+         */
+
+        //Extraer el Texto de la cadena
+        /*$cadena = $asignacion['tramite_cod'];
+        $texto = preg_replace("/[^a-zA-Z]/", "", $cadena);
+
+        if (count($asignacion) != 0) {
+
+            switch ($texto) {
+                case 'FIP':
+                    return view(
+                        'paginas.infoPublica',
+                        array(
+                            'asignacion' => $asignacion,
+                            "blog" => $blog,
+                            "administradores" => $administradores,
+                            'infoP' => $infop
+                        )
+                    );
+                    break;
+                case 'TSD':
+                    return view(
+                        'paginas.infoPublica',
+                        array(
+                            'asignacion' => $asignacion,
+                            "blog" => $blog,
+                            "administradores" => $administradores,
+                            'infoP' => $infop
+                        )
+                    );
+                    break;
+
+                default:
+                    # code...
+                    break;
+            }
+
+
+        }
+        return view(
+            'paginas.verTramites',
+            array(
+                'status' => 404,
+                'asignacion' => $asignacion,
+                "blog" => $blog,
+                "administradores" => $administradores
+            )
+        );
+            */
     }
 
 }

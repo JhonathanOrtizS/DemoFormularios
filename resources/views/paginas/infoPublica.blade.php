@@ -330,6 +330,310 @@
   fechaInput.value = formatoFecha;
 </script>
 
+
+<!--=====================================
+EDITAR PREGUNTAS
+======================================-->
+@if (isset($status))
+
+    @if ($status == 200 )
+        
+        @foreach ($asignacion as $item => $val)
+
+        <!--=====================================
+          Foreach de status
+        ======================================-->
+            
+<div class="modal" id="editarPregunta">
+
+  <div class="modal-dialog modal-lg">
+
+    <div class="modal-content">
+
+      <form action="{{url('/')}}/infoPublica/{{$val->id_ip}}" method="post" enctype="multipart/form-data">
+
+        @method('PUT')
+        @csrf
+        
+        <div class="modal-header bg-info">
+          
+          <h4 class="modal-title">Editar Tramite FIP</h4>
+
+          <button type="button" class="close " data-dismiss="modal">&times;</button>
+
+        </div>
+
+        {{--Contenido de los Campos del formulario--}}
+        @foreach ($infoP as $j => $ip)
+
+        @if($val['tramite_cod'] == $ip['codigo_tramite'])
+
+        <div class="modal-body">
+
+          <div class="card-body">
+
+            <div class="row">
+
+              <div class="col-lg-7">
+                    
+                <div class="card">
+
+                  <div class="card-body">
+
+                  {{-- Fecha de Solicitud  --}}
+
+                  <div class="input-group mb-3">
+
+                    <div class="input-group-append">
+
+                      <span class="input-group-text">Fecha de Solicitud</span>
+
+                    </div>
+
+                    <input type="date" id="" class="form-control" name="" value="{{$ip['fecha_solicitud']}}" readonly>
+
+                  </div>
+
+                  {{-- Solicitante  --}}
+
+                  <div class="input-group mb-3">
+                    
+                    <div class="input-group-append">
+                      
+                      <span class="input-group-text">Solicitante</span>
+
+                    </div>
+
+                    <input type="text" class="form-control" name="editSolicitanteIP" value="{{ $ip->contacto}}" required>
+
+                  </div>
+
+                  {{-- Residencia  --}}
+
+                  <div class="input-group mb-3">
+                    
+                    <div class="input-group-append">
+                      
+                      <span class="input-group-text">Residencia</span>
+
+                    </div>
+
+                    <input type="text" class="form-control" name="residenciaIP" value="{{ $ip->direccion}}" required>
+
+                  </div>
+
+                  {{-- Telefono  --}}
+
+                  <div class="input-group mb-3">
+                    
+                    <div class="input-group-append">
+                      
+                      <span class="input-group-text">Telefono +502</span>
+
+                    </div>
+
+                    <input type="number" class="form-control" name="telefonoIP" value="{{$ip->telefono}}" required>
+
+                  </div>
+
+                  {{-- Municipio  --}}
+
+                  <div class="input-group mb-3">
+                    
+                    <div class="input-group-append">
+                      
+                      <span class="input-group-text">Municipio </span>
+
+                    </div>
+
+                    <select class="form-control"  name="municipioIP" required>
+
+                        <option value="{{$ip->municipio}}"  selected>{{$ip->municipio}} </option>
+                        <option value="cubulco">Cubulco</option>
+                        <option value="granados">Granados</option>
+                        <option value="salama">Salamá</option>
+                        <option value="san jeronimo">San Jerónimo</option>
+
+                    </select>
+
+                  </div>
+
+                  {{-- CUI --}}
+
+                  <div class="input-group mb-3">
+                    
+                    <div class="input-group-append">
+                      
+                      <span class="input-group-text">CUI</span>
+
+                    </div>
+
+                    <input type="text" class="form-control" name="cuiIP" value="{{ $ip->cui}}" required>
+
+                  </div>
+
+                  {{-- Descripción  --}}
+
+                  <div class="input-group mb-3">
+                    
+                    <div class="input-group-append">
+                      
+                      <span class="input-group-text">Descripción</span>
+
+                    </div>
+
+                    <textarea class="form-control" rows="5" name="descripcionIP" required>{{$ip->detalle_solicitud}}</textarea>
+
+                  </div>
+
+                  <hr class="pb-2">
+
+
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="col-lg-5">
+                    
+                    <div class="card">
+
+                      <div class="card-body">
+                
+                        <div class="row">
+                          
+                          <div class="col-lg-12">
+                              
+                            {{-- Codigo Formulario --}}
+                            <div class="form-group my-2 text-center">
+
+                              <ol class="breadcrumb float-sm-left" style="background: #FFF; width: 100%;">
+
+                                <li class="breadcrumb-item active">No.</li>
+                                <li class="breadcrumb-item active" style="color: #0000FF;">codigo de formulario</li>
+                                
+                              </ol>
+                               
+
+                            </div>
+                            
+                            {{--Referencia--}}
+                            <div class="form-group my-2 text-center">
+
+                              <ol class="breadcrumb float-sm-left" style="background: #FFF; width: 100%;">
+
+                                <li class="breadcrumb-item active">Ref.</li>
+                                <li class="breadcrumb-item active" style="color: #0000FF;">codigo de referencia</li>
+
+                              </ol>
+                              
+
+                            </div>
+
+                            {{--Estatus--}}
+                            <div class="form-group my-2 text-center">
+
+                              <ol class="breadcrumb float-sm-left" style="background: #FFF; width: 100%;">
+
+                                <li class="breadcrumb-item active">Estatus.</li>
+                                <li class="breadcrumb-item active">Asignado</li>
+
+                              </ol>
+                              
+
+                            </div>
+
+                          </div>
+
+                        </div>
+                          
+                      </div>
+
+
+                      {{--CAMBIAR ESTATUS--}}
+                      <div class="card-body">
+                
+                        <div class="row">
+                          
+                          <div class="col-lg-12">
+                              
+                            <div class="input-group mb-3">
+                              
+                              <div class="input-group-append">
+                                
+                                <span class="input-group-text">Estatus</span>
+
+                              </div>
+
+                              <select class="form-control"  name="estatusIP" required>
+
+                                <option value=""  selected>Seleccione </option>
+                                <option value="en espera">En Espera</option>
+                                <option value="modificado">Modificado</option>
+                                <option value="asignado">Asignado</option>
+                                <option value="ejecutando">Ejecutando</option>
+
+                            </select>
+
+                            </div>
+                            
+
+                          </div>
+
+                        </div>
+                          
+                      </div>
+          
+                    </div>
+                    
+                  </div>
+
+            </div>
+
+          </div>
+
+        </div>
+        @endif
+        @endforeach
+        {{--Segundo Each--}}
+        
+
+        <div class="modal-footer d-flex justify-content-between">
+          
+          <div>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+          </div>
+
+          <div>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+          </div>
+
+        </div>
+
+
+
+      </form>
+
+    </div>
+    
+  </div>
+
+</div>
+
+        <!--=====================================
+          Foreach de status
+        ======================================-->
+
+        @endforeach
+
+        <script>$("#editarPregunta").modal()</script>
+
+    @endif
+    
+@endif
+
+
+
 <!-- -->
 @if (Session::has("ok-crear"))
 
