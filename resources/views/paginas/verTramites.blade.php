@@ -60,7 +60,9 @@
               {{--  TABLA PARA MOSTRAR TRAMITES ASIGNADOS  --}}
 
               @foreach($administradores as $key => $element)
-                @if (isset($_COOKIE["email_login"]) && $_COOKIE["email_login"] == $element->email)
+
+                @if ($_COOKIE["email_login"] == $element->email)
+
                   @foreach($asignaciones as $i => $asig)
 
                     @if ($element->id == $asig['user_id'])
@@ -76,13 +78,12 @@
                     <tr>
                       
                       <th>#</th>
-                      <th> Tramite </th>
                       <th> Codigo </th>
-                      <th> Observaciones del Tramite</th>
+                      <th> Detalles </th>
                       <th> Fecha Asignación </th>
                       <th> Fecha Finalización </th>
                       <th> Estatus </th>
-                      <th> Acciones </th>
+                      <th> Acciones </th> 
   
                     </tr>              
   
@@ -90,6 +91,7 @@
   
                   <tbody>
                       
+                 
   
                   </tbody>
   
@@ -120,13 +122,33 @@
 </div>
 
 
-  @if (Session::has("no-validacion"))
+  <!-- -->
+@if (Session::has("ok-crear"))
 
-  <script>
-      notie.alert({ type: 2, text: '¡Hay campos no válidos en el formulario!', time: 10 })
-  </script>
+<script>
+    notie.alert({ type: 1, text: '¡Tramite creado con Exito!', time: 10 })
+</script>
 
-  @endif
+@endif
+
+@if (Session::has("no-validacion"))
+
+<script>
+  notie.alert({ type: 2, text: '¡Hay campos no válidos en el formulario!', time: 10 })
+</script>
+
+@endif
+
+@if (Session::has("error"))
+
+<script>
+    notie.alert({ type: 3, text: '¡Error al cargar los datos en el Formulario!', time: 10 })
+</script>
+
+@endif
+
+
+<!-- -->
 
   @endsection
 

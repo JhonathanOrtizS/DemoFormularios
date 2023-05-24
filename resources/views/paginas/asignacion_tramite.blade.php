@@ -79,11 +79,11 @@
                       
                       <th>#</th>
                       <th>Usuario</th>
-                      <th>Tramite</th>
-                      <th>Observaciones</th>
-                      <th>Fecha Asig.</th>
-                      <th>Estatus</th>
-                      <th>Acciones</th>
+                      <th> Codigo </th>
+                      <th> Fecha Asignación </th>
+                      <th> Fecha Finalización </th>
+                      <th> Estatus </th>
+                      <th> Acciones </th> 
   
                     </tr>              
   
@@ -112,180 +112,31 @@
 </div>
 
 
-<!--=====================================
-Crear Asignaciones
-======================================-->
 
-<div class="modal" id="crearAsignacionTramite">
 
-    <div class="modal-dialog">
 
-        <div class="modal-content">
 
-            <form action="{{url('/')}}/asignacion_tramite" method="post" enctype="multipart/form-data">
-
-            @csrf
-            
-            <div class="modal-header bg-info">
-                
-                <h4 class="modal-title">Crear Asignación de Tramite</h4>
-
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-
-            </div>
-
-            <div class="modal-body">
-                
-                {{-- Título Tramite --}}
-                <label>Título del Tramite</label> <br>
-                <div class="input-group mb-3">
-
-                <div class="input-group-append input-group-text">
-                    <i class="nav-icon fa-solid fa-sheet-plastic"></i>
-                </div>
-
-                <select class="form-control"  name="id_tramite" required>
-
-                    <option value=""  selected>Seleccione Tramite</option>
-
-                    @foreach ($tramites as $key => $value)
-                    
-                        <option value="{{$value->id_tramite}}">{{$value->nombre_tramite}}</option>
-
-                    @endforeach
-
-                    </select>
-
-                </div> 
-
-                {{-- Usuario --}}
-                <label>Usuario</label> <br>
-                <div class="input-group mb-3">
-
-                    <div class="input-group-append input-group-text">
-                        <i class="fa-solid fa-user"></i>
-                    </div>
-
-                    <select class="form-control"  name="id_user" required>
-
-                      <option value=""  selected>Seleccione Usuario</option>
-
-                      @foreach ($usuarios as $key => $val)
-                    
-                        <option value="{{$val->id}}">{{$val->name}}</option>
-
-                      @endforeach
-
-                    </select>
-
-                </div>
-
-                {{-- Estatus del Tramite --}}
-                <label>Estatus del Tramite</label> <br>
-                <div class="input-group mb-3">
-
-                    <div class="input-group-append input-group-text">
-                        <i class="fas fa-list-ul"></i>
-                    </div>
-
-                    <select class="form-control"  name="estatus" required>
-
-                        <option value=""  selected>Seleccione Estatus</option>
-                        <option value="asignado">Asignado</option>
-                        <option value="ejecutando">Ejecutando</option>
-                        <option value="en espera">En Espera</option>
-                        <option value="modificado">Modificado</option>
-                        <option value="abortado">Abortado</option>
-
-                    </select>
-
-                </div>
-
-                {{-- Fecha de Tramite --}}
-                <label>Fecha de Asignación </label> <br>
-                <div class="input-group mb-3">
-
-                  <div class="input-group-append input-group-text">
-                      <i class="fa-solid fa-calendar-days"></i>
-                  </div>
-
-                  <input type="date" id="fechaInput" class="form-control" name="" placeholder="Ingrese el título del tramite" readonly>
-
-                </div>
-
-                {{-- Descripción Tramite --}}
-                <label>Descripción del Tramite</label> <br>
-                <div class="input-group mb-3">
-            
-                    <div class="input-group-append input-group-text">
-                        <i class="fas fa-pencil-alt"></i>
-                    </div>
-
-                    <textarea class="form-control" rows="3" name="observacion_asignacion"
-                    placeholder="Ingrese la descripción del tramite"
-                    cols="20"
-                    maxlength="300"></textarea>
-
-                </div> 
-
-            </div>
-
-            <div class="modal-footer d-flex justify-content-between">
-                
-                <div>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                </div>
-
-                <div>
-                <button type="submit" class="btn btn-primary">Guardar</button>
-                </div>
-
-            </div>
-
-            </form>
-
-        </div>
-    
-    </div>
-
-</div>
-
-<script>$("#crearAsignacionTramite").modal()</script>
-<script>
-    // Obtener el elemento del input por su id
-    var fechaInput = document.getElementById("fechaInput");
-
-    // Obtener la fecha actual
-    var fechaActual = new Date();
-
-    // Formatear la fecha para asignarla al valor del input
-    var formatoFecha = fechaActual.toISOString().split('T')[0];
-
-    // Asignar la fecha formateada al valor del input
-    fechaInput.value = formatoFecha;
-  </script>
 
 
   <!--=====================================
   Editar Asignaciones
   ======================================-->
 
-  @if (isset($status))
+@if (isset($status))
 
-    @if ($status == 200)
+  @if ($status == 200)
 
-      @foreach ($tramites as $key => $valueAg)
+    @foreach ($asignado as $key => $elementAsig)
     
-<div class="modal" id="crearAsignacionTramite">
+<div class="modal" id="editarAsignacionTramite">
 
     <div class="modal-dialog">
 
         <div class="modal-content">
 
-            <form action="{{url('/')}}/tramites/{{$valueT['id_ag']}}" method="post" enctype="multipart/form-data">
+            <form action="{{url('/')}}/asignacion_tramite/{{$elementAsig['id_ag']}}" method="post" enctype="multipart/form-data">
                 @method('PUT')
                 @csrf
-            
             <div class="modal-header bg-info">
                 
                 <h4 class="modal-title">Editar Asignación de Tramite</h4>
@@ -295,31 +146,10 @@ Crear Asignaciones
             </div>
 
             <div class="modal-body">
-                
-                {{-- Título Tramite --}}
-                <label>Título del Tramite</label> <br>
-                <div class="input-group mb-3">
 
-                <div class="input-group-append input-group-text">
-                    <i class="nav-icon fa-solid fa-sheet-plastic"></i>
-                </div>
-
-                <select class="form-control"  name="id_tramite" required>
-
-                    @foreach ($tramites as $key => $valueT2)
-
-                        @if ($valueT['tramite_id'] == $valueT2['id_tramite'])
-                            <option value="$valueT2['id_tramite']" selected>{{$valueT2->nombre_tramite}}</option>
-                        @endif
-                    
-                        <option value="{{$valueT2->id_tramite}}">{{$valueT2->nombre_tramite}}</option>
-
-                    @endforeach
-
-                    </select>
-
-                </div> 
-
+              
+            @foreach ($usuarios as $key => $valueUs)
+            @endforeach
                 {{-- Usuario --}}
                 <label>Usuario</label> <br>
                 <div class="input-group mb-3">
@@ -328,19 +158,43 @@ Crear Asignaciones
                         <i class="fa-solid fa-user"></i>
                     </div>
 
-                    <select class="form-control"  name="id_user" required>
-
-                    @foreach ($usuarios as $key => $valueUs)
-
-                        @if ($val['evaluacion_id'] == $value4['id_evaluacion'])
-                            <option value="$value4['id_evaluacion']" selected>{{$value4->titulo_evaluacion}}</option>
+                    <select class="form-control" name="id_user" required>
+                        @if (is_null($elementAsig->user_id))
+                            <option value="" selected>Seleccione</option>
                         @endif
-                    
-                        <option value="{{$val->id}}">{{$val->name}}</option>
 
-                    @endforeach
-
+                        @foreach ($usuarios as $key => $valueUs)
+                            @if (!is_null($elementAsig->user_id) && $elementAsig->user_id == $valueUs->id)
+                                <option value="{{$elementAsig->user_id}}" selected>{{$valueUs->name}}</option>
+                            @else
+                                <option value="{{$valueUs->id}}">{{$valueUs->name}}</option>
+                            @endif
+                        @endforeach
                     </select>
+
+                </div>
+
+                {{-- Codigo de Tramite  --}}
+                <label>Codigo</label> <br>
+                <div class="input-group mb-3">
+
+                  <div class="input-group-append input-group-text">
+                    <i class="fa-solid fa-calendar-days"></i>
+                  </div>
+
+                  <input type="text" id="" class="form-control" name="codigo_tram" placeholder="Ingrese el título del tramite" value="{{$elementAsig->tramite_cod}}" readonly>
+
+                </div>
+
+                {{-- Fecha de Solicitud  --}}
+                <label>Fecha Asignación</label> <br>
+                <div class="input-group mb-3">
+
+                  <div class="input-group-append input-group-text">
+                    <i class="fa-solid fa-calendar-days"></i>
+                  </div>
+
+                  <input type="date" id="fechaInfoPublica" class="form-control" name="fechaAsigna" placeholder="Ingrese el título del tramite" value="{{$elementAsig->fecha_asignacion}}" readonly>
 
                 </div>
 
@@ -354,7 +208,7 @@ Crear Asignaciones
 
                     <select class="form-control"  name="estatus" required>
 
-                        <option value=""  selected>Seleccione Estatus</option>
+                        <option value="{{$elementAsig->estatus}}" selected>{{$elementAsig->estatus}}</option>
                         <option value="asignado">Asignado</option>
                         <option value="ejecutando">Ejecutando</option>
                         <option value="en espera">En Espera</option>
@@ -373,12 +227,13 @@ Crear Asignaciones
                     <i class="fas fa-pencil-alt"></i>
                 </div>
 
-                <textarea class="form-control" rows="3" name="observacion_tramite"
+                <textarea class="form-control" rows="3" name="observacion_asignacion"
                 placeholder="Ingrese la descripción del tramite"
                 cols="20"
-                maxlength="300"></textarea>
+                maxlength="300">{{----}}</textarea>
 
                 </div> 
+
 
             </div>
 
@@ -404,8 +259,21 @@ Crear Asignaciones
 
       @endforeach
 
-      <script>$("#editarAsignaciones").modal()</script>
+      <script>$("#editarAsignacionTramite").modal()</script>
 
+      <script>
+        // Obtener el elemento del input por su id
+        //var fechaInput = document.getElementById("fechaInput");
+
+        // Obtener la fecha actual
+        //var fechaActual = new Date();
+
+        // Formatear la fecha para asignarla al valor del input
+        //var formatoFecha = fechaActual.toISOString().split('T')[0];
+
+        // Asignar la fecha formateada al valor del input
+        //fechaInput.value = formatoFecha;
+      </script>
     @endif
 
   @endif

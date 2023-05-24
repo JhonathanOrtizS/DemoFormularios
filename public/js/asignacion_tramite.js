@@ -40,32 +40,32 @@ var tablaAsignacionesTramites = $("#tablaAsignacionesTramites").DataTable({
     //ahora vamos a pedir que lo construlla en las siguientes columnas
     columns: [
         {
-            //columna ID
+            //columna ID de la tabla asignaciones
             data: "id_ag",
             name: "id_ag"
         },
         {
-            //columna Usuario
+            //columna Usuario de la tabla users
             data: "name",
             name: "name"
         },
         {
-            //columna TITULO Evaluacion
-            data: "nombre_tramite",
-            name: "nombre_tramite"
+            //columna TITULO del Tramite de la tabla asignaciones
+            data: "tramite_cod",
+            name: "tramite_cod"
         },
         {
-            //columna Observaciones
-            data: "observaciones",
-            name: "observaciones"
-        },
-        {
-            //columna Fecha de Asignacion
+            //columna Fecha de Asignacion de la tabla asignaciones
             data: "fecha_asignacion",
             name: "fecha_asignacion"
         },
         {
-            //columna Estatus
+            //columna Fecha de Finalizacion de la tabla asignaciones
+            data: "fecha_finalizacion",
+            name: "fecha_finalizacion"
+        },
+        {
+            //columna Estatus de la tabla asignaciones
             data: "estatus",
             name: "estatus"
         },

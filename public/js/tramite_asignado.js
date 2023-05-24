@@ -46,18 +46,23 @@ var verTramiteAsignado = $("#verTramiteAsignado").DataTable({
         },
         {
             //columna Tramite
-            data: "nombre_tramite",
-            name: "nombre_tramite"
+            data: "codigo_tramite",
+            name: "codigo_tramite"
         },
         {
-            //columna Observaciones del Tramite
-            data: "observaciones",
-            name: "observaciones"
+            //columna Observacion de la asignacion
+            data: "observaciones_asignacion",
+            name: "observacion"
         },
         {
             //columna Fecha de Asignacion
             data: "fecha_asignacion",
             name: "fecha_asignacion"
+        },
+        {
+            //columna Fecha de Asignacion
+            data: "fecha_finalizacion",
+            name: "fecha_finalizacion"
         },
         {
             //columna Estatus

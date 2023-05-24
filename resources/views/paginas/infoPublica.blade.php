@@ -53,7 +53,7 @@
                  
           @endforeach
 
-          <form action="{{url('/')}}/infoPublica/" method="post" enctype="multipart/form-data">
+          <form action="{{url('/')}}/infoPublica" method="post" enctype="multipart/form-data">
             {{--se aplica al formulario enctype para indicarle que se va a trabajar 
               con archivos de tipo file--}}
 
@@ -151,10 +151,10 @@
                             <select class="form-control"  name="municipioIP" required>
 
                                 <option value=""  selected>Seleccione </option>
-                                <option value="en espera">Cubulco</option>
-                                <option value="modificado">Granados</option>
-                                <option value="asignado">Salamá</option>
-                                <option value="ejecutando">San Jerónimo</option>
+                                <option value="cubulco">Cubulco</option>
+                                <option value="granados">Granados</option>
+                                <option value="salama">Salamá</option>
+                                <option value="san jeronimo">San Jerónimo</option>
 
                             </select>
 
@@ -170,7 +170,7 @@
 
                             </div>
 
-                            <input type="number" class="form-control" name="cuiIP" value="{{-- $element->titulo--}}" required>
+                            <input type="text" class="form-control" name="cuiIP" value="{{-- $element->titulo--}}" required>
 
                           </div>
 
@@ -331,6 +331,35 @@
 </script>
 
 <!-- -->
+@if (Session::has("ok-crear"))
+
+    <script>
+        notie.alert({ type: 1, text: '¡Tramite creado con Exito!', time: 10 })
+  </script>
+
+  @endif
+
+  @if (Session::has("no-validacion"))
+
+  <script>
+      notie.alert({ type: 2, text: '¡Hay campos no válidos en el formulario!', time: 10 })
+  </script>
+
+  @endif
+
+  @if (Session::has("error"))
+
+    <script>
+        notie.alert({ type: 3, text: '¡Error al cargar los datos en el Formulario!', time: 10 })
+  </script>
+
+  @endif
+
+
+<!-- -->
+
+
+
 
 @endsection
 
@@ -346,3 +375,5 @@
   @endif
 
 @endforeach 
+
+  

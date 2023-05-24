@@ -99,17 +99,6 @@
                         </a>
                       </li>
                       
-                      <!--=====================================
-                      Botón Tramites
-                      ======================================-->
-
-                      <li class="nav-item">
-                        <a href="{{ url('/tramites') }}" class="nav-link">
-                          <i class="nav-icon fa-solid fa-sheet-plastic"></i>
-                          <p>Tramites</p>
-                        </a>
-                      </li>
-                  
                   @else
 
                       <!--=====================================

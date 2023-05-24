@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 
 use App\Administradores;
 use App\Blog;
-use App\Perfil;
 use App\Tramites;
 use App\AsignacionTramite;
 use App\InformacionPublica;
@@ -19,31 +18,37 @@ class VerTramitesController extends Controller
     public function index()
     {
         # code...
-        $join = DB::table('asignacion_tramite')
-            ->join('tramite', 'tramite.id_tramite', '=', 'asignacion_tramite.tramite_id')
-            ->select('asignacion_tramite.*', 'tramite.*')
+        $join = DB::table('asignacion_tramite AS at')
+            ->join('users', 'users.id', '=', 'at.user_id')
+            ->select('at.*', 'users.*')
             ->get();
 
         if (request()->ajax()) {
             # code...
             return datatables()->of($join)
-                ->addColumn('nombre_tramite', function ($data) {
-                    # code...
-                    $nombre_tramite = $data->nombre_tramite;
-                    return $nombre_tramite;
+
+                ->addColumn('codigo_tramite', function ($data) {
+                    # Codigo del tramite de la asignacion
+                    $codigo_tramite = $data->tramite_cod;
+                    return $codigo_tramite;
                 })
-                ->addColumn('observaciones', function ($data) {
-                    # code...
-                    $observaciones = $data->observaciones;
-                    return $observaciones;
+                ->addColumn('observacion', function ($data) {
+                    # Observacion del tramite de la asignacion
+                    $observacion = $data->observaciones_asignacion;
+                    return $observacion;
                 })
                 ->addColumn('fecha_asignacion', function ($data) {
-                    # code...
+                    # Fecha de asignacion del tramtie
                     $fecha_asignacion = $data->fecha_asignacion;
                     return $fecha_asignacion;
                 })
+                ->addColumn('fecha_finalizacion', function ($data) {
+                    # Fecha de finalizacion de Asignacion
+                    $fecha_finalizacion = $data->fecha_finalizacion;
+                    return $fecha_finalizacion;
+                })
                 ->addColumn('estatus', function ($data) {
-                    # code...
+                    # Estatus de la Asignacion
                     $estatus = $data->estatus;
                     return $estatus;
                 })
@@ -60,7 +65,7 @@ class VerTramitesController extends Controller
                     return $acciones;
 
                 })
-                ->rawColumns(['nombre_tramite', 'observaciones', 'fecha_asignacion', 'estatus', 'acciones'])
+                ->rawColumns(['codigo_tramite', 'observacion', 'fecha_asignacion', 'fecha_finalizacion', 'estatus', 'acciones'])
                 ->make(true);
         }
 
